@@ -1,0 +1,13 @@
+{
+    "python.analysis.extraPaths": [
+        "~/django_server"
+    ],
+    "python.autoComplete.extraPaths": [
+        "./**"
+    
+    ],
+    "python.venvPath": "~/django_server",
+    "python.venvFolders": [
+        "~/django_server"
+    ]
+}
