@@ -59,17 +59,26 @@
         <div class="col-xs-12">
           <div class="hero-full-wrapper">
             <div class="text-content">
-              {% block heading %}
-              
-              {% endblock heading %}
-
-
+              <h1>  
+                <span id="typed-strings">
+                  
+                  
+                  {% block heading %}
+                  {% endblock heading %}    
+                  
+                  
+                </span>
+              </h1>
+              <h3>{% block table %}
+                  {% endblock table %}</h3>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+
 
 <script>
   document.addEventListener("DOMContentLoaded", function (event) {
@@ -79,6 +88,8 @@
 </script>
 
 
-<script type="text/javascript" src="./static/main.70a66962.js"></script></body>
+<script type="text/javascript" src="{% static 'main.70a66962.js' %}"></script>
+
+</body>
 
 </html>
