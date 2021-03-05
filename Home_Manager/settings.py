@@ -17,6 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
 STATIC_DIR = os.path.join(BASE_DIR, "static")
 MEDIA_ROOT = BASE_DIR
+CLAIM_DIR = os.path.join(BASE_DIR, "claim")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -62,7 +63,7 @@ ROOT_URLCONF = 'Home_Manager.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIR],
+        'DIRS': [TEMPLATE_DIR, os.path.join(CLAIM_DIR, "templates")], 
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

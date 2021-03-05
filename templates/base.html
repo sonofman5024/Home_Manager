@@ -1,4 +1,6 @@
 {% load static %}
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,6 +22,40 @@
   {% endblock title %} 
 
 <link href="{% static 'main.3f6952e4.css' %}" rel="stylesheet"></head>
+
+<style>
+tbody {
+  display:block;
+  width: 100%;
+  overflow: auto;
+  height: 600px;
+  background: rgba(0,0,0,0.8)
+}
+table { 
+  border-spacing: 0px; 
+  table-layout: auto; 
+  margin-left: auto; 
+  margin-right: auto; 
+}
+thead tr {
+   display:table-header-group;
+}
+
+thead {
+  background: rgba(0,0,0,0.8);
+  color:#fff;
+}
+
+th, td {
+  padding: 0px;
+  text-align: left;
+  width: 185px;
+  word-wrap: break-word;
+  display: inline-block
+}
+form {
+  background: rgba(0,0,0,0.8);
+</style>
 
 <body class="minimal">
 <div id="site-border-left"></div>
@@ -53,13 +89,13 @@
   </nav>
 </header>
 <!-- Add your site or app content here -->
-  <div class="hero-full-container background-image-container white-text-container" style="background-image: url('{% static 'images/space.jpg' %}')">
+  <div class="hero-full-container background-image-container" style="background-image: url('{% static 'images/space.jpg' %}')">
     <div class="container">
       <div class="row">
         <div class="col-xs-12">
           <div class="hero-full-wrapper">
             <div class="text-content">
-              <h1>  
+              <h1 style="color: white;">  
                 <span id="typed-strings">
                   
                   
@@ -68,9 +104,16 @@
                   
                   
                 </span>
+                
               </h1>
-              <h3>{% block table %}
-                  {% endblock table %}</h3>
+              <h3 style="color: green;">
+                  {% block form %}
+                  {% endblock form%}
+              </h3>
+              
+              <h4>{% block table %}
+                  {% endblock table %}</h4>
+                  
             </div>
           </div>
         </div>

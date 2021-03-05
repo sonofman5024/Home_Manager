@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load custom_extras %}
+{% load static %}
+
+{% block table %}
+        <table class="table" style="color: green">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Content</th>
+                    <th>Proof</th>
+                    <th>Status</th>
+                    <th>Operation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for obj in all_claims%}
+                <tr>
+                    <td>{{ obj.claim_title}}</td>
+                    <td>{{ obj.filed_date}}</td>
+                    <td>{{ obj.content}}</td>
+                    <td><a href="../{{ obj.uploads}}">{{ obj.uploads.name|trim:8}}</a></td>
+                    <td>{{ obj.status}}</td>
+                    <td><a href="{% url 'edit' obj.id %}">Edit</a>/<a href="{% url 'delete' obj.id %}">Delete</a></td>
+                </tr>  
+                 {%endfor%}
+            </tbody>
+        </table>
+
+{%endblock table%}

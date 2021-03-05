@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load custom_extras %}
+{% load static %}
+
+{% block table %}
+    <form method="POST" enctype="multipart/form-data">    
+        
+        <table class="table" style="color: green">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Content</th>
+                    <th>Proof</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% csrf_token %}
+                    <td><input type="text" placeholder="{{ claim.claim_title}}" value="{{ claim.claim_title}}" name="claim_title"></td>
+                    <td><input type="date" value="{{ claim.filed_date}}" name="filed_date">{{ claim.filed_date}}</td>
+                    <td><input type="text" placeholder="{{ claim.content}}" value="{{ claim.content}}" name="content"></td>
+                    <td><a href="../../{{ claim.uploads}}">{{ claim.uploads.name|trim:8}}</a><input type="file" value="{{ claim.uploads}}" name="uploads"></td>
+                    <input type="hidden" value="{{ claim.status}}" name="status">
+                    <td><input type="submit" class='btn btn-primary' value='submit'></td>
+                </tr>  
+            </tbody>
+        </table>
+    </form>
+
+{%endblock table%}
