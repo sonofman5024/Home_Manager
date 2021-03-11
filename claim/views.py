@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from claim.models import ClaimList
 from claim.form import ClaimForm
+from django.core.paginator import Paginator 
 
 # Create your views here.
 def claim(request):
@@ -11,12 +12,9 @@ def thank_you(request):
 
 def edit(request, claim_id):
     claim = ClaimList.objects.get(pk=claim_id)
-    print(type(claim.filed_date))
+
     if request.method == 'POST':
-        print(request.POST)
-        print(request.FILES)
         form = ClaimForm(request.POST, request.FILES, instance=claim)
-        print(form)
         if form.is_valid():
             form.save()
         else: print("change not saved. Something went wrong!")
@@ -25,18 +23,20 @@ def edit(request, claim_id):
         return render(request, "edit.html", {"claim":claim})    
 
 def delete(request, claim_id):
-    return render(request, "thank_you.html", context = None)    
+    claim = ClaimList.objects.get(pk=claim_id)
+    claim.delete()
+    return redirect("claim_history")    
 
 def claim_history(request):
     all_claims = ClaimList.objects.all()
-
+    paginator= Paginator(all_claims, 10)
+    page = request.GET.get("page")
+    all_claims = paginator.get_page(page)
     return render(request, "claim_history.html", {"all_claims":all_claims, })
     
 def file_claim(request):
     all_claims = ClaimList.objects.all()
     claim_form = ClaimForm
-    print(request.POST)
-    print(request.FILES)
     if request.method == "POST":
         form = ClaimForm(request.POST, request.FILES)
         print(form)

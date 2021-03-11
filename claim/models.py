@@ -1,7 +1,5 @@
 from django.db import models
 from datetime import date
-from model_utils.fields import StatusField
-from model_utils import Choices
 
 # Create your models here.
 class ClaimList(models.Model):
@@ -15,7 +13,7 @@ class ClaimList(models.Model):
         (NEW, 'New Claim'),
     ]
 
-    STATUS = Choices('NEW', 'Accepted', 'Declined')
+
 
     claim_title = models.CharField(max_length=20, )
     filed_date = models.DateField(default = date.today)

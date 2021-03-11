@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block table %}
-    <form method="POST" enctype="multipart/form-data">    
+    <form method="POST" enctype="multipart/form-data" style>    
         
         <table class="table" style="color: green">
             <thead>
@@ -15,12 +15,12 @@
                     <th>Status</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody style="height: auto">
                 <tr>
                     {% csrf_token %}
                     <td><input type="text" placeholder="{{ claim.claim_title}}" value="{{ claim.claim_title}}" name="claim_title"></td>
-                    <td><input type="date" value="{{ claim.filed_date}}" name="filed_date">{{ claim.filed_date}}</td>
-                    <td><input type="text" placeholder="{{ claim.content}}" value="{{ claim.content}}" name="content"></td>
+                    <td><input type="date" value="{{ claim.filed_date}}" required name="filed_date">{{ claim.filed_date}}</td>
+                    <td><textarea name="content" maxlength="100" id="id_content" placeholder="{{ claim.content}}">{{ claim.content}}</textarea></td>
                     <td><a href="../../{{ claim.uploads}}">{{ claim.uploads.name|trim:8}}</a><input type="file" value="{{ claim.uploads}}" name="uploads"></td>
                     <input type="hidden" value="{{ claim.status}}" name="status">
                     <td><input type="submit" class='btn btn-primary' value='submit'></td>
