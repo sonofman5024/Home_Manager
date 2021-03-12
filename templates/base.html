@@ -53,8 +53,11 @@ th, td {
   word-wrap: break-word;
   display: inline-block
 }
-form {
-  background: rgba(0,0,0,0.8);
+form, input[type="password"]{
+  background: rgba(255,255,255,0.2);
+
+}  
+
 
 </style>
 
@@ -83,8 +86,16 @@ form {
           <li><a href="{% url 'account' %}" title="">Account</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Log In</a></li>
-            <li><a href="#">Sign Up</a></li>
+            {% if user.is_authenticated %}
+            <li><a>Hi! {{ user.username}}.</a></li>
+            <li><a href="{% url 'logout'%}">Log Out</a></li>
+            {% else %}
+            <li><a href="{% url 'login'%}">Log In</a></li>
+            <li><a href="{% url 'fork'%}">Sign Up</a></li>
+            {% endif %}
+            
+          
+            
         </ul>
 
 

@@ -44,8 +44,13 @@
           <li><a href="/account/" title="">Account</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Log In</a></li>
-            <li><a href="#">Sign Up</a></li>
+            {% if user.is_authenticated %}
+            <li><a>Hi! {{ user.username}}.</a></li>
+            <li><a href="{% url 'logout'%}">Log Out</a></li>
+            {% else %}
+            <li><a href="{% url 'login'%}">Log In</a></li>
+            <li><a href="{% url 'fork'%}">Sign Up</a></li>
+            {% endif %}
         </ul>
 
 

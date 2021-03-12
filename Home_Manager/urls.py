@@ -26,5 +26,6 @@ urlpatterns = [
     path('complaint/', include('complaint.urls')),
     path('claim/', include('claim.urls')),
     path('rewards/', include('rewards.urls')),
-    path('account/', include('user_app.urls')),
+    path('account/', include('account.urls')),
+    path('user/', include('user_app.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

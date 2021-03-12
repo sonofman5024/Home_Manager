@@ -2,8 +2,11 @@ from django.shortcuts import render, redirect
 from claim.models import ClaimList
 from claim.form import ClaimForm
 from django.core.paginator import Paginator 
+from user_app.decorator import kid_required, parent_required
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required
 def claim(request):
     return render(request, "claim.html", context = None)
 
@@ -27,6 +30,7 @@ def delete(request, claim_id):
     claim.delete()
     return redirect("claim_history")    
 
+@login_required
 def claim_history(request):
     all_claims = ClaimList.objects.all()
     paginator= Paginator(all_claims, 10)

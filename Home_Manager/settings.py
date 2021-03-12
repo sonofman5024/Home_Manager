@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'complaint',
     'rewards',
     'account',
+    'user_app',
 
 ]
 
@@ -130,5 +131,6 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/'
 STATICFILES_DIRS = [
     STATIC_DIR,
-
 ]
+AUTH_USER_MODEL = 'user_app.User'
+LOGIN_REDIRECT_URL = 'home'
