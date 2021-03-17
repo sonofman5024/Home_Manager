@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import date
+from user_app.models import User
 
 # Create your models here.
 class ClaimList(models.Model):
@@ -14,7 +15,7 @@ class ClaimList(models.Model):
     ]
 
 
-
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
     claim_title = models.CharField(max_length=20, )
     filed_date = models.DateField(default = date.today)
     content = models.CharField(max_length=100)

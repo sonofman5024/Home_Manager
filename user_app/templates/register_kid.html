@@ -6,7 +6,7 @@
             <h3 style="color: green;">
             {{register_form.as_p}}
             </h3>
-            <input type="hidden" name='is_parent' value='True' id='id_is_parent'>
+            <input type="hidden" name='parent' value={{ request.session.parent }}>
             <input type="submit" class='btn btn-primary' value='submit'>   
                  
                   
