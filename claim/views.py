@@ -6,6 +6,8 @@ from user_app.decorator import kid_required, parent_required
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+
+
 @kid_required
 def claim(request):
     return render(request, "claim.html", context = None)
@@ -34,7 +36,7 @@ def delete(request, claim_id):
 
 @kid_required
 def claim_history(request):
-    all_claims = ClaimList.objects.all()
+    all_claims = ClaimList.objects.filter(user = request.user)
     paginator= Paginator(all_claims, 10)
     page = request.GET.get("page")
     all_claims = paginator.get_page(page)
@@ -42,12 +44,12 @@ def claim_history(request):
 
 @kid_required   
 def file_claim(request):
-    all_claims = ClaimList.objects.all()
     claim_form = ClaimForm
     if request.method == "POST":
         form = ClaimForm(request.POST, request.FILES)
-        print(form)
+        print(request)
         if form.is_valid():
+            form.save(commit=False).user = request.user
             form.save()
         else:
             print("claim was not sent. Something went wrong!")
@@ -55,4 +57,4 @@ def file_claim(request):
 
     else: 
 
-        return render(request, "file_claim.html", {"all_claims":all_claims, "claim_form" : claim_form})
+        return render(request, "file_claim.html", {"claim_form" : claim_form})

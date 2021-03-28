@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title> Account </title> 
+{% endblock title %}
+
+{% block table %}
+<h3 style="color:white">Personal Info</h3>
+
+    <h3><div style="color:green ">
+        <p><span >First Name: </span>{{ user.first_name }}</p>
+        <p><span >Last Name: </span>{{ user.last_name }}</p>
+        <p><span >Email: </span>{{ user.email }}</p>
+        <p><span >Username: </span>{{ user.username }}</p>
+        <p><span >Date of Birth: </span>{{ user.date_birth }}</p>
+
+        {% if user.is_kid %}
+        <p><span >Parent: </span>{{ parent.first_name }} {{ parent.last_name }}</p>
+        <p><span >Reward Credits: </span>{{ credit }}</p>
+        {% endif %}
+
+    </div>
+    </h3>
+        {% if user.is_parent %}
+        <h3 style="color:green "><p><span >Dependents: </span></p></h3>
+            <table class="table" style="color: green">
+            <thead>
+                <tr>
+                    <th>Kid's Name</th>
+                    <th>Date of Birth</th>
+                    <th>Total Claims</th>
+                    <th>Credits</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for kid in kids %}
+                <tr>
+                    <td>{{ kid.user.first_name}} {{ kid.user.last_name}}</td>
+                    <td>{{ kid.user.date_birth}}</td>
+                    <td>{{ kid.user.claimlist_set.count}}</td>
+                    <td>{{ kid.reward_credit}}</td>
+                </tr>  
+                {%endfor%}
+            </tbody>
+        </table>
+        {% endif %}
+{% endblock table %}

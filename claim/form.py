@@ -5,7 +5,7 @@ class ClaimForm(ModelForm):
     
     class Meta:
         model = ClaimList
-        exclude = ["status", ]
+        exclude = ["status", "user" ]
         widgets = {
             'content': Textarea(attrs={'cols': 100, 'rows': 5}),
         }
