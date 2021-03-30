@@ -35,12 +35,15 @@
             <tbody>
                 {% for kid in kids %}
                 <tr>
-                    <td>{{ kid.user.first_name}} {{ kid.user.last_name}}</td>
+                    <td><a href={% url 'kid_claim' kid.user.id %}>{{ kid.user.first_name}} {{ kid.user.last_name}}</a></td>
                     <td>{{ kid.user.date_birth}}</td>
                     <td>{{ kid.user.claimlist_set.count}}</td>
                     <td>{{ kid.reward_credit}}</td>
                 </tr>  
                 {%endfor%}
+                {% if not kids %}
+                Currently no claims.
+                {% endif %}
             </tbody>
         </table>
         {% endif %}

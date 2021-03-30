@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_extras %}
+
+{% block table %}
+        <table class="table" style="color: green">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Content</th>
+                    <th>Proof</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for obj in active_claims%}
+                <tr>
+                    <td>{{ obj.claim_title}}</td>
+                    <td>{{ obj.filed_date}}</td>
+                    <td>{{ obj.content}}</td>
+                    <td><a href="../{{ obj.uploads}}">{{ obj.uploads.name|trim:8}}</a></td>
+                    <td><a href="{% url 'accept' obj.id %}">Accept</a>/<a href="{% url 'decline' obj.id %}">Decline</a></td>
+                </tr>  
+                 {%endfor%}
+
+            </tbody>
+        
+        </table>
+
+        <ul class="nav navbar-nav navbar-right">
+            <li class="page-item"><a class="page-link" href="?page=1" tabindex="-1" aria-disabled="true"><<</a></li>
+            {% if active_claims.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ active_claims.previous_page_number}}">{{ active_claims.previous_page_number}}</a></li>
+            {% endif %}
+            <li class="page-item"><a class="page-link" href="?page={{ active_claims.number }}">{{ active_claims.number }}</a></li>
+            
+            {% if active_claims.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ active_claims.next_page_number }}">{{ active_claims.next_page_number}}</a></li>
+            {% endif%}
+            <li class="page-item"><a class="page-link" href="?page={{ active_claims.paginator.num_pages}}">>></a>
+            </li>
+        </ul>
+        
+{%endblock table%}

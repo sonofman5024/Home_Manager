@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from user_app.models import User, Kid
 from django.db.models import Count, F
+from claim.models import ClaimList
+from django.core.paginator import Paginator
 
 # Create your views here.
 def account(request):
@@ -23,3 +25,29 @@ def account_info(request):
 
         return render(request, "account_info.html", {'account':account, 'kids':kids,}, ) 
 
+def kid_claim(request, kid_id):
+    request.session['kid_id']=kid_id
+    active_claims = ClaimList.objects.filter(user=kid_id, status='NEW')
+    paginator= Paginator(active_claims, 10)
+    page = request.GET.get("page")
+    active_claims = paginator.get_page(page)
+    return render(request, "kid_claim.html", {'active_claims':active_claims} )
+
+def accept(request, claim_id):
+    claim = ClaimList.objects.get(pk=claim_id)
+    kid_id=request.session['kid_id']
+    kid = Kid.objects.get(user = kid_id)
+    kid.reward_credit += 1
+    kid.save()
+    claim.status = 'ACCEPTED'
+    claim.save()
+    return redirect('kid_claim', kid_id = kid_id)
+
+def decline(request, claim_id):
+    claim = ClaimList.objects.get(pk=claim_id)
+    kid_id=request.session['kid_id']
+    
+
+    claim.status = 'DECLINED'
+    claim.save()
+    return redirect('kid_claim', kid_id = kid_id)
