@@ -3,6 +3,7 @@
 {% load static %}
 
 {% block table %}
+{% if claim.user == request.user %}
     <form method="POST" enctype="multipart/form-data" style>    
         
         <table class="table" style="color: green">
@@ -28,5 +29,8 @@
             </tbody>
         </table>
     </form>
+{% else %}
+<h1 style='color: white'> Access Denied. Are you trying to do something sneaky?</h1>
+{% endif %}
 
 {%endblock table%}

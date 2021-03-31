@@ -31,8 +31,12 @@ def edit(request, claim_id):
 @kid_required
 def delete(request, claim_id):
     claim = ClaimList.objects.get(pk=claim_id)
-    claim.delete()
-    return redirect("claim_history")    
+    if claim.user == request.user:
+        claim.delete()
+        return redirect("claim_history")
+    else:
+
+        return redirect("access_denied")    
 
 @kid_required
 def claim_history(request):
@@ -58,3 +62,6 @@ def file_claim(request):
     else: 
 
         return render(request, "file_claim.html", {"claim_form" : claim_form})
+
+def access_denied(request):
+    return render(request, 'access_denied.html')

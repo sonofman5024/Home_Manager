@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block form %}
+<h1 style='color:white'>Please login as a kid.</h1>
+        <form method="POST" style="background: rgba(0,0,0,0.8) " enctype="multipart/form-data">
+            {% csrf_token %}
+            <h3 style="color: green;">
+            {{form.as_p}}
+            </h3>
+            
+            <input type="submit" class='btn btn-primary' value='submit'>   
+                 
+                  
+{% endblock form%}

@@ -8,4 +8,5 @@ urlpatterns = [
     path('claim_history.html', views.claim_history, name = 'claim_history'),
     path('delete/<claim_id>', views.delete, name = 'delete'),
     path('edit/<claim_id>', views.edit, name = 'edit'),
+    path('access_denied', views.access_denied, name = 'access_denied'),
 ]

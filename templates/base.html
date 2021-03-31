@@ -79,11 +79,9 @@ form, input[type="password"], input[type="email"]{
       <div class="collapse navbar-collapse" id="navbar-collapse">
         <ul class="nav navbar-nav ">
           <li><a href="{% url 'home' %}" title="">Home</a></li>
-          {% if user.is_kid %}
           <li><a href="{% url 'claim' %}" title="">Claim</a></li>
           <li><a href="{% url 'complaint' %}" title="">Complaint</a></li>
           <li><a href="{% url 'rewards' %}" title="">Rewards</a></li>
-          {% endif %}
           <li><a href="{% url 'account' %}" title="">Account</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
