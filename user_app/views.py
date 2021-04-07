@@ -7,21 +7,16 @@ import datetime
 # Create your views here.
 def register(request):
     if request.method == 'POST':
-        form = RegisterForm(request.POST)
-        print(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
+        register_form = RegisterForm(request.POST)
+        if register_form.is_valid():
+            user = register_form.save(commit=False)
             user.is_parent = True
             user.save()
             return redirect("thank_you")
-        else: 
-        
-            return HttpResponse("registration failed")
-           
-
-
+       
     else:
-        return render(request, "register.html", {'register_form':RegisterForm})
+        register_form = RegisterForm()
+    return render(request, "register.html", {'register_form':register_form})
 
 def pre_register(request):
     if request.method == 'POST':
@@ -45,22 +40,19 @@ def parent_conf(request):
 
 def register_kid(request):
     if request.method == 'POST':
-        form = RegisterForm(request.POST)
+        register_form = RegisterForm(request.POST)
         parent = request.POST['parent']
-        print(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
+        if register_form.is_valid():
+            user = register_form.save(commit=False)
             user.is_kid = True
             user.save()
             Kid.objects.create(user = user, parent=User.objects.get(username=parent), reward_credit = 0)
-
-        else: 
-            print("wrong")
-        return redirect("thank_you")   
-
-
+            return redirect("thank_you")  
+        # else: 
+        #     return HttpResponse("registration failed") 
     else:
-        return render(request, "register_kid.html", {'register_form':RegisterForm})
+        register_form = RegisterForm()
+    return render(request, "register_kid.html", {'register_form':register_form})
 
 def thank_you(request):
     return render(request, "thank_you_regi.html", context = None)

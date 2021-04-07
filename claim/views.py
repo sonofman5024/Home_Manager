@@ -20,13 +20,14 @@ def edit(request, claim_id):
     claim = ClaimList.objects.get(pk=claim_id)
 
     if request.method == 'POST':
-        form = ClaimForm(request.POST, request.FILES, instance=claim)
-        if form.is_valid():
-            form.save()
-        else: print("change not saved. Something went wrong!")
-        return redirect("thank_you")
+        claim = ClaimForm(request.POST, request.FILES, instance=claim)
+        if claim.is_valid():
+            claim.save()
+            return redirect("claim_history")
     else:
-        return render(request, "edit.html", {"claim":claim})    
+        claim = ClaimList.objects.get(pk=claim_id)
+
+    return render(request, "edit.html", {"claim":claim})    
 
 @kid_required
 def delete(request, claim_id):
@@ -35,7 +36,6 @@ def delete(request, claim_id):
         claim.delete()
         return redirect("claim_history")
     else:
-
         return redirect("access_denied")    
 
 @kid_required
@@ -48,20 +48,17 @@ def claim_history(request):
 
 @kid_required   
 def file_claim(request):
-    claim_form = ClaimForm
+
     if request.method == "POST":
-        form = ClaimForm(request.POST, request.FILES)
+        claim_form = ClaimForm(request.POST, request.FILES)
         print(request)
-        if form.is_valid():
-            form.save(commit=False).user = request.user
-            form.save()
-        else:
-            print("claim was not sent. Something went wrong!")
-        return redirect("thank_you.html")
-
+        if claim_form.is_valid():
+            claim_form.save(commit=False).user = request.user
+            claim_form.save()
+            return redirect("thank_you.html")
     else: 
-
-        return render(request, "file_claim.html", {"claim_form" : claim_form})
+        claim_form = ClaimForm()
+    return render(request, "file_claim.html", {"claim_form" : claim_form})
 
 def access_denied(request):
     return render(request, 'access_denied.html')

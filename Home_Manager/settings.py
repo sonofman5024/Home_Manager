@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'rewards',
     'account',
     'user_app',
+    'crispy_forms',
 
 ]
 
@@ -134,3 +135,4 @@ STATICFILES_DIRS = [
 ]
 AUTH_USER_MODEL = 'user_app.User'
 LOGIN_REDIRECT_URL = 'home'
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
