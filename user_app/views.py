@@ -22,10 +22,13 @@ def pre_register(request):
     if request.method == 'POST':
         if request.POST['action']=='submit':
             email = request.POST['email']
-            parent = User.objects.get(email=email)
-            if parent:
-                return render(request, "pre_register.html", {'parent':parent})  
-            else:
+            try: 
+                parent = User.objects.get(email=email)
+                return render(request, "pre_register.html", {'parent':parent}) 
+            # parent = User.objects.get(email=email)
+            # if parent:
+            #     return render(request, "pre_register.html", {'parent':parent})  
+            except:
                 return HttpResponse("no such person!")
         elif request.POST['action']=='YES':
             print(request.POST['parent'])
