@@ -1,1 +1,1 @@
-web: gunicorn myproject.wsgi
+web: gunicorn Home_Manager.wsgi
