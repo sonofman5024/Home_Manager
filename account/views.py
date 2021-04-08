@@ -1,16 +1,17 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from user_app.models import User, Kid
+from user_app.decorator import parent_required
 from claim.models import ClaimList
 from django.core.paginator import Paginator
 
 # Create your views here.
-@login_required
+@login_required(login_url='login')
 def account(request):
     
     return render(request, "account.html", context = None)
 
-@login_required
+@login_required(login_url='login')
 def account_info(request):
     if request.user.is_kid:
         account = User.objects.get(username = request.user)
@@ -25,6 +26,7 @@ def account_info(request):
 
         return render(request, "account_info.html", {'account':account, 'kids':kids,}, ) 
 
+@parent_required
 def kid_claim(request, kid_id):
     request.session['kid_id']=kid_id
     if Kid.objects.get(user=kid_id).parent == request.user:
@@ -37,6 +39,7 @@ def kid_claim(request, kid_id):
     else:
         return redirect('access_denied')
 
+@parent_required
 def accept(request, claim_id):
     claim = ClaimList.objects.get(pk=claim_id)
     if request.session.has_key('kid_id'):
@@ -53,6 +56,7 @@ def accept(request, claim_id):
     else:
         return redirect('access_denied')
 
+@parent_required
 def decline(request, claim_id):
     claim = ClaimList.objects.get(pk=claim_id)
     if request.session.has_key('kid_id'):
