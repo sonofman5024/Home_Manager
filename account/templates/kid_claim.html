@@ -20,7 +20,7 @@
                     <td>{{ obj.claim_title}}</td>
                     <td>{{ obj.filed_date}}</td>
                     <td>{{ obj.content}}</td>
-                    <td><a href="../../{{ obj.uploads}}">{{ obj.uploads.name|trim:8}}</a></td>
+                    <td><a href="{{ obj.uploads.url }}">{{ obj.uploads.name|trim:8}}</a></td>
                     <td><a href="{% url 'accept' obj.id %}">Accept</a>/<a href="{% url 'decline' obj.id %}">Decline</a></td>
                 </tr>  
                  {%endfor%}
